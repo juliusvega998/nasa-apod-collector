@@ -3,6 +3,9 @@ set -e
 
 ## This script will retrieve all apods starting from START_DATE to a month later.
 ## This should only be used once a day until caught up with the more recent ones.
+## Usage:
+## $ ./get_old_apods.sh [mm/dd/yyyy]
+
 
 if [[ -z "$NASA_API_KEY" ]]; then
     echo "[ ERROR ] You will NEED an API KEY!! Sign up and grab one from nasa now! Aftwerwards, set it to env var NASA_API_KEY"
@@ -10,11 +13,11 @@ if [[ -z "$NASA_API_KEY" ]]; then
 fi
 
 if [[ -z "$OUTPUT_DIR" ]]; then
-    echo "[ WARN ] OUTPUT_DIR not set! Please check!!"
+    echo "[ WARN ] OUTPUT_DIR not set! Defaulting to './apods'"
     OUTPUT_DIR='apods'
 fi
 
-START_DATE="07/10/2025"
+START_DATE="$1"
 END_DATE="$(date -d"$START_DATE + 1 month" +'%m/%d/%Y')"
 CURR_DATE=$START_DATE
 while [[ $(date -d "$CURR_DATE" +%s) -lt $(date -d "$END_DATE" +%s) && $(date -d "$CURR_DATE" +%s) -lt $(date +%s) ]]; do
