@@ -1,0 +1,3 @@
+apods/*
+*.json
+*.env
