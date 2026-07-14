@@ -2,7 +2,7 @@
 
 ## Prerequisites
 * NASA API Key - sign up for a NASA Open API Key: https://api.nasa.gov/
-* jq binaries - should be included in apt/dnf
+* jq binaries - can be installed via apt/dnf/yum
 
 ## How To Run
 ### Environment Variable
@@ -24,7 +24,7 @@ source [env filename]
 ./get_apod.sh
 ```
 
-This can also work in cron:
+This can also work in cron. The example below will run daily at 12 midnight on the server timezone:
 ```cron
 NASA_API_KEY="api key"
 0 0 * * * /path/to/get_apod.sh
