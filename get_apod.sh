@@ -5,7 +5,8 @@ set -e
 
 cd $(dirname $0)
 
-if [[ -f 'nasa.env' ]]; then
+if [[ -f 'nasa.env' && -z "$NASA_API_KEY" ]]; then
+    echo "Found file nasa.env in current directory. Using that instead."
     source nasa.env
 fi
 
@@ -27,7 +28,7 @@ echo "> NASA response: $RESPONSE"
 if [[ "$(echo "$RESPONSE" | jq -r '.[0].media_type')" == 'image' ]]; then
     IMG_URL="$(echo "$RESPONSE" | jq -r '.[0].hdurl')"
     echo "> Found download URL: $IMG_URL"
-    wget $IMG_URL -P "$OUTPUT_DIR"
+    curl -OSs $IMG_URL --output-dir "$OUTPUT_DIR"
     echo "Downloading Done! Sleeping for 2 minute..."
 else
     echo "> Media type is not image! Skipping..."
