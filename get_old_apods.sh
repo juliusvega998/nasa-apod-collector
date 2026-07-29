@@ -6,6 +6,11 @@ set -e
 ## Usage:
 ## $ ./get_old_apods.sh [mm/dd/yyyy]
 
+cd $(dirname $0)
+
+if [[ -f 'nasa.env' ]]; then
+    source nasa.env
+fi
 
 if [[ -z "$NASA_API_KEY" ]]; then
     echo "[ ERROR ] You will NEED an API KEY!! Sign up and grab one from nasa now! Aftwerwards, set it to env var NASA_API_KEY"
@@ -20,7 +25,7 @@ fi
 START_DATE="$1"
 END_DATE="$(date -d"$START_DATE + 1 month" +'%m/%d/%Y')"
 CURR_DATE=$START_DATE
-while [[ $(date -d "$CURR_DATE" +%s) -lt $(date -d "$END_DATE" +%s) && $(date -d "$CURR_DATE" +%s) -lt $(date +%s) ]]; do
+while [[ $(date -d "$CURR_DATE" +%s) -lt $(date -d "$END_DATE" +%s) && $(date -d "$CURR_DATE" +%s) -lt $(date -d 'yesterday' +%s) ]]; do
     API_DATE=$(date -d "$CURR_DATE" +'%Y-%m-%d')
     echo "> Retrieving image URL of APOD for date $API_DATE - $(date)"
     RESPONSE="$(curl -sS "https://api.nasa.gov/planetary/apod?api_key=$NASA_API_KEY&start_date=$API_DATE&end_date=$API_DATE")"

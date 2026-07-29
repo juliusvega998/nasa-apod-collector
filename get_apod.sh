@@ -3,6 +3,12 @@ set -e
 
 ## This script will retrieve only the most recent apod
 
+cd $(dirname $0)
+
+if [[ -f 'nasa.env' ]]; then
+    source nasa.env
+fi
+
 if [[ -z "$NASA_API_KEY" ]]; then
     echo "[ ERROR ] You will NEED an API KEY!! Sign up and grab one from nasa now! Aftwerwards, set it to env var NASA_API_KEY"
     exit 10

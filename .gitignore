@@ -1,3 +1,4 @@
 apods/*
 *.json
 *.env
+*.log
