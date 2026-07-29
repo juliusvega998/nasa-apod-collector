@@ -22,7 +22,7 @@ if [[ -z "$OUTPUT_DIR" ]]; then
     OUTPUT_DIR='apods'
 fi
 
-START_DATE="$1"
+START_DATE="$(date -d"$1" +'%m/%d/%Y')"
 END_DATE="$(date -d"$START_DATE + 1 month" +'%m/%d/%Y')"
 CURR_DATE=$START_DATE
 while [[ $(date -d "$CURR_DATE" +%s) -lt $(date -d "$END_DATE" +%s) && $(date -d "$CURR_DATE" +%s) -lt $(date -d 'yesterday' +%s) ]]; do
