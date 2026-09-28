@@ -32,4 +32,4 @@ NASA_API_KEY="api key"
 
 ### Scripts
 * `get_apod.sh` - retrieves the latest apod. Can be used to run in cron
-* `get_old_apods.sh` - retrieves the old apods. Starts from START_DATE upto the apod a month after. Highly recommended to use only once a day to retrieve apods until fully caught up
+* `get_old_apods.sh` - retrieves the old apods. Starts from START_DATE upto the apod a month after. Highly recommended to run once to retrieve apods until fully caught up and then use `get_apod.sh` to get the newer apods.
